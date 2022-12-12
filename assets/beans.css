@@ -1,0 +1,440 @@
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+.bns-normalize img, .bns-normalize legend {
+    border: 0
+}
+
+.bns-normalize legend, .bns-normalize td, .bns-normalize th {
+    padding: 0
+}
+
+.bns-normalize audio:not([controls]) {
+    display: none;
+    height: 0
+}
+
+.bns-normalize [hidden], .bns-normalize template {
+    display: none
+}
+
+.bns-normalize a {
+    background-color: transparent
+}
+
+.bns-normalize a:active, .bns-normalize a:hover {
+    outline: 0
+}
+
+.bns-normalize abbr[title] {
+    border-bottom: 1px dotted
+}
+
+.bns-normalize b, .bns-normalize optgroup, .bns-normalize strong {
+    font-weight: 700
+}
+
+.bns-normalize dfn {
+    font-style: italic
+}
+
+.bns-normalize h1 {
+    font-size: 2em;
+    margin: .67em 0
+}
+
+.bns-normalize mark {
+    background: #ff0;
+    color: #000
+}
+
+.bns-normalize small {
+    font-size: 80%
+}
+
+.bns-normalize svg:not(:root) {
+    overflow: hidden
+}
+
+.bns-normalize figure {
+    margin: 1em 40px
+}
+
+.bns-normalize hr {
+    box-sizing: content-box;
+    height: 0
+}
+
+.bns-normalize fieldset {
+    border: 1px solid silver;
+    margin: 0 2px;
+    padding: .35em .625em .75em
+}
+
+.bns-normalize table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+.bns-normalize div {
+    box-sizing: border-box
+}
+
+.beans-clearfix:before, .beans-clearfix:after {
+    content: " ";
+    display: table
+}
+
+.beans-clearfix:after {
+    clear: both
+}
+
+/*
+------- Cart Block -----
+Cart Block is used on cart page to allow the user to redeem their beans.
+It contains a redeem button as well as some info text.
+Cart Block is responsive
+
+HTML Structure:
+
+div: .beans-cart
+    div: .beans-cart-div
+        div: .beans-cart-info-div
+            div: .beans-info-contain
+                -- You have x beans
+        div: .beans-cart-action-div
+             -- Redeem or Join button
+*/
+
+.bns-cart-box {
+    margin-top: 15px;
+    display: block;
+    width: 100%;
+    padding: 10px 0 10px 10px;
+    /*min-height: 62px;*/
+    /*border-top: 1px solid #DDD;*/
+    /*border-bottom: 1px solid #DDD;*/
+}
+
+.bns-cart-box.bns-cart-box-info {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.bns-cart-box .bns-cart-info {
+    display: inline-block;
+    padding: 0 10px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 300;
+    color: #333;
+    max-width: 490px;
+    vertical-align: middle;
+}
+
+.bns-cart-box .bns-cart-bt-wrapper {
+    display: inline-block;
+    text-align: right;
+    vertical-align: middle;
+    min-width: 100px;
+    max-width: 250px;
+    max-height: 50px;
+    overflow: hidden;
+    padding: 0;
+    float: right;
+}
+
+.bns-cart-box .bns-cart-redeem-box {
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 10px 25px 0 rgba(49, 49, 93, 0.1);
+}
+
+.bns-cart-box .bns-cart-redeem-box > div {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.bns-cart-box .bns-cart-img {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.bns-cart-box .bns-cart-img img {
+    width: 20px;
+    height: auto;
+    background-position: center;
+}
+
+.bns-cart-box .bns-cart-title {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 15px;
+    margin-left: 3px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #fff;
+    max-width: 180px;
+}
+
+.bns-cart-box .bns-animate-bounce {
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    background: #FFF;
+    box-shadow: 0 10px 25px 0 rgba(49, 49, 93, 0.1);
+    text-decoration: none;
+}
+
+.bns-cart-box .bns-animate-bounce:hover {
+    -webkit-transform: translateY(-1px);
+    -moz-transform: translateY(-1px);
+    -ms-transform: translateY(-1px);
+    -o-transform: translateY(-1px);
+    transform: translateY(-1px);
+}
+
+.bns-cart-box .bns-animate-bounce:active {
+    box-shadow: 0 10px 25px 0 rgba(49, 49, 93, 0.1);
+    text-decoration: none;
+    -webkit-transform: translateY(-4px);
+    -moz-transform: translateY(-4px);
+    -ms-transform: translateY(-4px);
+    -o-transform: translateY(-4px);
+    transform: translateY(-4px);
+}
+
+/*
+------- Account Block -----
+Account Block is used on account page to display the user beans balance and history.
+
+HTML Structure:
+
+div: .beans-section
+
+  div: .beans-intro
+      -- Join our rewards program text
+
+  div: .beans-balance
+      -- user's account balance
+
+  ul: .beans-rules
+      -- Retailer's rules
+
+  table: .beans-history
+      -- user's account history
+*/
+
+.beans-section {
+    display: block;
+    max-width: 700px;
+    margin: 30px auto;
+}
+
+.beans-section h1 {
+    margin-bottom: 30px;
+}
+
+.beans-intro {
+    display: block;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.beans-balance {
+    display: block;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.beans-rules {
+    margin: 20px auto;
+}
+
+.beans-rules li {
+    margin: 10px auto;
+}
+
+.beans-history {
+    width: 100%;
+    margin: 20px auto;
+}
+
+/* bamboo */
+/*
+:target {
+    display: none;
+    height: 0;
+    width: 0;
+    animation: none;
+}
+*/
+
+#bamboo-popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 999999999999;
+    background-color: rgba(7, 7, 7, 0.7);
+    background-blend-mode: multiply;
+    animation-fill-mode: backwards;
+    animation-duration: .6s;
+    animation-name: bambooFadeIn;
+    animation-delay: 1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes bambooFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bambooZoomIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+#bamboo-popup-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#bamboo-popup {
+    padding-top: 39px;
+    padding-left: 130px;
+    padding-right: 130px;
+    background: linear-gradient(60.74deg, #139A4C 3.77%, #45CCA7 90.8%);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation-fill-mode: backwards;
+    animation-duration: .4s;
+    animation-name: bambooZoomIn;
+    animation-delay: 1s;
+}
+
+#bamboo-popup-discount {
+    position: relative;
+}
+
+#bamboo-popup-discount-value {
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+    font-size: 68px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0;
+    color: #2AB175;
+}
+
+#bamboo-popup-discount-content {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+}
+
+#bamboo-popup-discount-text {
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+    font-size: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #444444;
+    margin: 0;
+}
+
+#bamboo-popup-text {
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    font-size: 23px;
+    text-align: center;
+    color: #FFFFFF;
+    max-width: 430px;
+    margin: 24px 0 56px;
+}
+
+#bamboo-popup-footer {
+    height: 90px;
+    display: flex;
+    align-items: stretch;
+}
+
+.bamboo-popup-footer-svg {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#bamboo-popup-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 4px;
+}
+
+#bamboo-popup-cta-primary {
+    background: #FFFFFF;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 12px 16px;
+    cursor: pointer;
+}
+
+#bamboo-popup-cta-primary p {
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+    font-size: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #444444;
+    margin: 0;
+}
+
+#bamboo-popup-cta-primary a {
+    text-decoration: none;
+}
+
+#bamboo-popup-cta-secondary {
+    margin: 12px;
+}
+
+#bamboo-popup-cta-secondary a {
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 12px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #FFFFFF;
+}

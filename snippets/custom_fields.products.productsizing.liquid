@@ -1,0 +1,13 @@
+{% comment %}
+  DO NOT MODIFY THIS FILE DIRECTLY. THIS FILE WILL BE OVERWRITTEN.
+  YOU CAN MODIFY THE LIQUID CODE FOR THIS CUSTOM FIELD HERE:
+  https://customfields.bonify.io/dashboard/www-itspleazure-com.myshopify.com/products/configure/95787/edit
+{% endcomment %}
+{% if product.metafields.custom_fields["productsizing"] != blank %}
+  <div class="custom-field custom-field__productsizing custom-field__type--text">
+    <h3 class="custom-field--title">product-sizing</h3>
+    <div class="custom-field--value">
+      {{ product.metafields.custom_fields["productsizing"] }}
+    </div>
+  </div>
+{% endif %}
