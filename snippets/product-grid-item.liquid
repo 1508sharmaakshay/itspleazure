@@ -17,13 +17,13 @@
       <div class="product-image{% if settings.image_swap %} image-swap{% endif %}">
         <a href="{{ product.url | within: collection }}" class="product-grid-image">
           {% if product.images.size > 1 and settings.image_swap %}
-          <img class="pr-swp-img" src="{{ product.images[0].src | product_img_url: '200x200' }}" alt="{{ product.images[0].src | escape }}">
+          <img class="pr-swp-img lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAQAAABeK7cBAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=" data-src="{{ product.images[0].src | product_img_url: '200x200' }}" alt="{{ product.images[0].src | escape }}">
 
           <div class="hover-image">
-            <img src="{{ product.images[1].src | product_img_url: '200x200' }}" alt="{{ product.images[1].src | escape }}">
+            <img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAQAAABeK7cBAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=" data-src="{{ product.images[1].src | product_img_url: '200x200' }}" alt="{{ product.images[1].src | escape }}">
           </div>
           {% else %}
-          <img src="{{ product.featured_image.src | product_img_url: '200x200' }}" alt="{{ product.featured_image.alt | escape }}">
+          <img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAQAAABeK7cBAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=" data-src="{{ product.featured_image.src | product_img_url: '200x200' }}" alt="{{ product.featured_image.alt | escape }}">
 
           {% endif %}
           <div class="hover"></div>

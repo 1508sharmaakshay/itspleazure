@@ -99,7 +99,7 @@
 {%- endif -%}
 {%- endfor -%}
 </style>
-{{ 'filter-menu.scss.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" data-href="{{ 'filter-menu.scss.css' | asset_url }}">
 {{ 'filter-menu.js' | asset_url | script_tag }}
 {% endif %}
 {% endunless %}

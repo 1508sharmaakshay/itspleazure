@@ -4,241 +4,174 @@
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
 
-<head> 
-    <script src='{{ 'product_restore_email.js' | asset_url }}' defer='defer' ></script> 
-    <script id='em_product_variants' type='application/json'>
-        {{ product.variants | json }}
-    </script>
-    <script id='em_product_selected_or_first_available_variant' type='application/json'>
-        {{ product.selected_or_first_available_variant | json }}
-    </script>
-    <script id='em_product_metafields' type='application/json'>
-        {{ shop.metafields.email-sealapps-app.effective-time | json }}
-    </script>{%- comment -%}smartseo_integration_begin{%- endcomment -%}{% include 'smartseo' %}{%- comment -%}smartseo_integration_end{%- endcomment -%}
-  
+		{% if template contains "index" %}
+			{% render "index-css" %}
+		{% elsif template contains "collection" %}
+			{% render "collection-css" %}
+		{% elsif template contains "product" %}
+			{% render "product-css" %}
+		{% else %}
+			{% render "critical-css" %}
+		{% endif %}
 
+		<script src='{{ 'product_restore_email.js' | asset_url }}' defer='defer' ></script>
+		<script id='em_product_variants' type='application/json'>{{ product.variants | json }}</script>
+		<script id='em_product_selected_or_first_available_variant' type='application/json'>{{ product.selected_or_first_available_variant | json }}</script>
+		<script id='em_product_metafields' type='application/json'>{{ shop.metafields.email-sealapps-app.effective-time | json }}</script>
 
+		{%- comment -%}smartseo_integration_begin{%- endcomment -%}
+		{% include 'smartseo' %}
+		{%- comment -%}smartseo_integration_end{%- endcomment -%}
 
+		<!-- Google Tag Manager -->
+		<script type="lazyload2">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-MD3BJXW');</script>
+		<!-- End Google Tag Manager -->
 
+		{%- comment smartseo_integration_begin_meta_data -%}<title>{{ page_title }}{%if current_tags%} &ndash; tagged "{{ current_tags | join: ', ' }}"{%endif%}{%if current_page != 1%} &ndash; Page {{ current_page }}{%endif%}{%unless page_title contains shop.name%} &ndash; {{ shop.name }}{%endunless%}</title>{%- endcomment smartseo_integration_end_meta_data -%}
 
-  
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MD3BJXW');</script>
-<!-- End Google Tag Manager -->
-  
-  {%- comment smartseo_integration_begin_meta_data -%}<title>{{ page_title }}{%if current_tags%} &ndash; tagged "{{ current_tags | join: ', ' }}"{%endif%}{%if current_page != 1%} &ndash; Page {{ current_page }}{%endif%}{%unless page_title contains shop.name%} &ndash; {{ shop.name }}{%endunless%}</title>{%- endcomment smartseo_integration_end_meta_data -%}
-  
-  
-     
-  <meta name="google-site-verification" content="nZdbn_DtVTUtSYEGob443pMsmI3R7uBHqtk8-1eu0r8" />
+		<meta name="google-site-verification" content="nZdbn_DtVTUtSYEGob443pMsmI3R7uBHqtk8-1eu0r8">
+		<!-- Basic page needs ================================================== -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<!-- Title and description ================================================== -->
+		<!-- Product meta ================================================== -->
+		{% include 'fb-open-graph-tags' %}
+		{% include 'twitter-card' %}
+		<!-- Helpers ================================================== -->
+		<!-- <link rel="canonical" href="https://www.itspleazure.com"> -->
+		{% if template contains 'product' %}
+			{% if product.metafields.seo.unique_url == blank %}
+				<link rel="canonical" href="{{ canonical_url }}">
+			{% else %}
+				<link rel="canonical" href="{{ product.metafields.seo.unique_url }}">
+			{% endif %}
+		{% else %}
+			<link rel="canonical" href="{{ canonical_url }}">
+		{% endif %}
 
-  
-  <!-- Basic page needs ================================================== -->
-  
-  
-  
-  <meta charset="utf-8">
-  
-  
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	
-  <!-- Title and description ================================================== -->
-  
-  
-  
+		<meta name='viewport' content='width=device-width,initial-scale=1.0, user-scalable=0'>
+		<!-- Favicon -->
+		{% if settings.favicon != blank %}
+			<link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+		{% endif %}
+		<!-- fonts -->
+		{% include 'head_fonts' %}
+		<!-- Styles -->
+		{% include 'head_styles' %}
+		<!-- Scripts -->
+		{% include 'head_scripts' %}
+		<!-- Header hook for plugins ================================================== -->
+		<script type="lazyload2">
+			(function(c,l,a,r,i,t,y){
+				c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+				t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+				y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+			})(window, document, "clarity", "script", "6zy18r8o0h");
+		</script>
 
-  <!-- Product meta ================================================== -->
-  {%include 'fb-open-graph-tags'%}
-  {%include 'twitter-card'%}
+		{% if request.design_mode or template contains 'cart' or template contains 'checkout' %}
+			{{ content_for_header }}
+		{% else %}
+			{% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+			{{ content_for_header2 | replace: ' defer="defer" ', ' type="lazyload2" ' | replace: " src=", " data-src=" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('ks_load', asyncLoad, false);" | replace: "DOMContentLoaded", "DOMContentLoaded2" }}
+			<script>function _0xaaa3(){var _0x1d3790=['190FdZOQU','version','12075SEjrxL','437674DNPlQF','integrations','244TJnLUI','304173hVDHUn','21854VgQHPK','582538KAferY','1473708KjbHsZ','3PwHCLA','BOOMR','328TWoOzG','Linux\x20x86_64','876EvrGeM','52RLUAjO','3612075rAWXIx'];_0xaaa3=function(){return _0x1d3790;};return _0xaaa3();}function _0x2d93(_0x5f00cb,_0x423c37){var _0xaaa39b=_0xaaa3();return _0x2d93=function(_0x2d9333,_0x22564f){_0x2d9333=_0x2d9333-0xfa;var _0x3ab711=_0xaaa39b[_0x2d9333];return _0x3ab711;},_0x2d93(_0x5f00cb,_0x423c37);}var _0x3963cf=_0x2d93;(function(_0x3040ea,_0x4357f8){var _0x35e1b5=_0x2d93,_0xb345d3=_0x3040ea();while(!![]){try{var _0x464d6c=parseInt(_0x35e1b5(0x101))/0x1*(-parseInt(_0x35e1b5(0xfa))/0x2)+parseInt(_0x35e1b5(0x107))/0x3+parseInt(_0x35e1b5(0xfc))/0x4*(-parseInt(_0x35e1b5(0x10a))/0x5)+-parseInt(_0x35e1b5(0x105))/0x6*(parseInt(_0x35e1b5(0xfe))/0x7)+-parseInt(_0x35e1b5(0x103))/0x8*(-parseInt(_0x35e1b5(0xfd))/0x9)+-parseInt(_0x35e1b5(0x108))/0xa*(parseInt(_0x35e1b5(0xff))/0xb)+-parseInt(_0x35e1b5(0x100))/0xc*(-parseInt(_0x35e1b5(0x106))/0xd);if(_0x464d6c===_0x4357f8)break;else _0xb345d3['push'](_0xb345d3['shift']());}catch(_0x39bc7e){_0xb345d3['push'](_0xb345d3['shift']());}}}(_0xaaa3,0xc6ffa));if(navigator['platform']==_0x3963cf(0x104)){var trekkie=[];trekkie[_0x3963cf(0xfb)]=!0x0,window['BOOMR']={},window[_0x3963cf(0x102)][_0x3963cf(0x109)]=!![];}</script>
+		{% endif %}
 
-  <!-- Helpers ================================================== -->
- <!-- <link rel="canonical" href="https://www.itspleazure.com"> -->
-  
-  
-  
-  {%if template contains 'product'%}
-  {%if product.metafields.seo.unique_url == blank%}
-    <link rel="canonical" href="{{ canonical_url }}" />
-  {%else%}
-    <link rel="canonical" href="{{ product.metafields.seo.unique_url }}" />
-  {%endif%}
-{%else%}
-  <link rel="canonical" href="{{ canonical_url }}" />
-{%endif%}
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-   <meta name='viewport' content='width=device-width,initial-scale=1.0, user-scalable=0' >
-  
-  <!-- Favicon -->
-   {%if settings.favicon != blank%}
-    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
-  {%endif%}
- 
-   <!-- fonts -->
-  {%include 'head_fonts'%}
-  
-   <!-- Styles -->
-   {%include 'head_styles'%}
-  
-   <!-- Scripts -->
-  {%include 'head_scripts'%}
+		<link rel="stylesheet" data-href="{{ 'beans.css' | asset_url }}">
 
-  <!-- Header hook for plugins ================================================== -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "6zy18r8o0h");
-</script>
-  {{ content_for_header }}
-
-  {{ 'beans.css' | asset_url | stylesheet_tag }}
-
-  <script>window.beans_cjs_id = '{{ customer.id }}'; window.beans_cjs_email = '{{ customer.email }}';</script> 
-
-
-  <!--[if lt IE 9]>
-  {{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
-  <![endif]-->
-
-  {%comment%}
-    If you store has customers disabled, you can remove the following JS file
-  {%endcomment%}
-  {%if template contains 'customers'%}
-    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
-    {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
-  {%endif%}
-   
-  <!-- Belkapp verify -->
-  
-  
-{% section 'filter-menu-settings' %}
-  
-  
-  <!-- Hotjar Tracking Code for https://www.itspleazure.com/ -->
-<script>
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:2402006,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-</script>
-  
-  
-{% include 'grss-json-ld' %}</head>
-
-{%include 'search-autocomplete'%}
-{%comment%}
-  Add the page template as a class for easy page or template specific styling.
-{%endcomment%}
-<body id="{{ page_title | handle }}" class=" {%if customer%}customer-logged-in {%endif%}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD3BJXW"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
-  <div class="wrapper-container">	
-	{%section 'header'%}
-    {%section 'navigation'%}
-    <main class="main-content {%if template contains 'index' or template contains 'contact'%}{%else%}container{%endif%}" role="main">
-      {{ content_for_layout }}
-    </main>
-
-     {%section 'footer'%}
-
-    {%if settings.enable_quick_view%}
-      {%include 'quick-view-template'%}
-    {%endif%}
-
-    {%include 'footer_scripts'%}
-    {%include 'newsletter'%}
-    <div class="quick-view"></div>
-    <div id="back-top" style="display: none;"><a class="nav_up" href="#top">Back to top</a></div>
-  </div>
-
-  {%if settings.display_recently_viewed_products%}
-  <!-- Begin Recently Viewed Products -->
-  {{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
-  {{ 'jquery.products.min.js' | asset_url | script_tag }}
-  {%if template contains 'product'%}
-  <script>
-  Shopify.Products.recordRecentlyViewed();
-  </script>
-  {%endif%}
-  <!-- End Recently Viewed Products -->
-  {%endif%}
-  {%include 'sweettooth-widgets'%}
-  
-  {%if settings.enable_wishlist%}
-  {{ 'wishlish.js' | asset_url | script_tag }}
-  <script>
-    (function() {
-      Wishlist.init();
-    }());
-  </script>
-  {%endif%}
-	<div class="overlay-mn"></div>
-  
-
-  
-<!-- BEEKETINGSCRIPT CODE START -->{%include 'bk-tracking'%}<!-- BEEKETINGSCRIPT CODE END --> 
-
- 
-
- {%include 'smile-initializer'%}
-
-{{ 'instant.js' | asset_url | script_tag }}{% comment %} <!-- Power Tools view count code --> {% endcomment %}
-{% if template contains 'product' %}
-    <script type="text/javascript">
-        (function () {
-            var oldonload = window.onload;
-            window.onload = function(){
-                var scr = document.createElement("script");
-                scr.setAttribute('async', 'true');
-                scr.type = "text/javascript";
-                scr.src = "//ping.powertoolsapp.com/ping/{{ shop.permanent_domain }}/{{ product.id }}?weight={% if product.tags contains 'Featured' or product.tags contains 'featured' %}100{% else %}1{% endif %}{% if collection %}&collection_id={{ collection.handle }}{% endif %}";
-                ((document.getElementsByTagName('head') || [null])[0] || document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
-                if(oldonload){oldonload()}};
-        }());
-    </script>
-{% endif %}
-
-<!-- **BEGIN** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
-    {% render 'hextom_fsb_main', product: product, customer: customer %}
-    <!-- **END** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
-
-<!-- **BEGIN** Hextom USB Integration // Main Include - DO NOT MODIFY -->
-    {% render 'hextom_usb_main', product: product, customer: customer %}
-    <!-- **END** Hextom USB Integration // Main Include - DO NOT MODIFY -->
-</body>
+		<script>window.beans_cjs_id = '{{ customer.id }}'; window.beans_cjs_email = '{{ customer.email }}';</script>
+		<!--[if lt IE 9]>
+			{{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
+		<![endif]-->
+		{%comment%}If you store has customers disabled, you can remove the following JS file{%endcomment%}
+		{% if template contains 'customers' %}
+			{{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+			{{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+		{% endif %}
+		<!-- Belkapp verify -->
+		{% section 'filter-menu-settings' %}
+		<!-- Hotjar Tracking Code for https://www.itspleazure.com/ -->
+		<script type="lazyload2">
+			(function(h,o,t,j,a,r){
+				h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+				h._hjSettings={hjid:2402006,hjsv:6};
+				a=o.getElementsByTagName('head')[0];
+				r=o.createElement('script');r.async=1;
+				r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+				a.appendChild(r);
+			})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+		</script>
+		{% include 'grss-json-ld' %}
+	</head>
+	{%include 'search-autocomplete'%}
+	{%comment%}Add the page template as a class for easy page or template specific styling.{%endcomment%}
+	<body id="{{ page_title | handle }}" class=" {%if customer%}customer-logged-in {%endif%}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD3BJXW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<div class="wrapper-container">
+			{%section 'header'%}
+			{%section 'navigation'%}
+			<main class="main-content {% if template contains 'index' or template contains 'contact' %}{% else %}container{% endif %}" role="main">{{ content_for_layout }}</main>
+			{%section 'footer'%}
+			{%if settings.enable_quick_view%}
+				{%include 'quick-view-template'%}
+			{%endif%}
+			{%include 'footer_scripts'%}
+			{%include 'newsletter'%}
+			<div class="quick-view"></div>
+			<div id="back-top" style="display: none;"><a class="nav_up" href="#top">Back to top</a></div>
+		</div>
+		{%if settings.display_recently_viewed_products%}
+			<!-- Begin Recently Viewed Products -->
+			{{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
+			<script type="lazyload2" data-src="{{ 'jquery.products.min.js' | asset_url }}"></script>
+			{%if template contains 'product'%}
+				<script type="lazyload2">Shopify.Products.recordRecentlyViewed();</script>
+			{%endif%}
+			<!-- End Recently Viewed Products -->
+		{%endif%}
+		{%include 'sweettooth-widgets'%}
+		{%if settings.enable_wishlist%}
+			{{ 'wishlish.js' | asset_url | script_tag }}
+			<script>
+				setTimeout(function() {
+					Wishlist.init();
+				});
+			</script>
+		{%endif%}
+		<div class="overlay-mn"></div>
+		<!-- BEEKETINGSCRIPT CODE START -->{%include 'bk-tracking'%}<!-- BEEKETINGSCRIPT CODE END -->
+		{%include 'smile-initializer'%}
+		{{ 'instant.js' | asset_url | script_tag }}
+		{% comment %} <!-- Power Tools view count code --> {% endcomment %}
+		{% if template contains 'product' %}
+			<script type="text/javascript">
+				(function () {
+					var oldonload = window.onload;
+					window.onload = function(){
+						var scr = document.createElement("script");
+						scr.setAttribute('async', 'true');
+						scr.type = "text/javascript";
+						scr.src = "//ping.powertoolsapp.com/ping/{{ shop.permanent_domain }}/{{ product.id }}?weight={% if product.tags contains 'Featured' or product.tags contains 'featured' %}100{% else %}1{% endif %}{% if collection %}&collection_id={{ collection.handle }}{% endif %}";
+						((document.getElementsByTagName('head') || [null])[0] || document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+						if(oldonload){oldonload()}
+                    };
+				});
+			</script>
+		{% endif %}
+		<!-- **BEGIN** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
+		{% render 'hextom_fsb_main', product: product, customer: customer %}
+		<!-- **END** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
+		<!-- **BEGIN** Hextom USB Integration // Main Include - DO NOT MODIFY -->
+		{% render 'hextom_usb_main', product: product, customer: customer %}
+		<!-- **END** Hextom USB Integration // Main Include - DO NOT MODIFY -->
+	</body>
 </html>
+<script>var _0x449935=_0x56b8;(function(_0x4949fe,_0x297f42){var _0x57639f=_0x56b8,_0x445028=_0x4949fe();while(!![]){try{var _0x1ae45d=parseInt(_0x57639f(0x117))/0x1*(-parseInt(_0x57639f(0xe3))/0x2)+-parseInt(_0x57639f(0xf2))/0x3+-parseInt(_0x57639f(0x112))/0x4*(-parseInt(_0x57639f(0xcf))/0x5)+parseInt(_0x57639f(0x102))/0x6+parseInt(_0x57639f(0x107))/0x7+-parseInt(_0x57639f(0xde))/0x8*(-parseInt(_0x57639f(0x105))/0x9)+parseInt(_0x57639f(0xf5))/0xa;if(_0x1ae45d===_0x297f42)break;else _0x445028['push'](_0x445028['shift']());}catch(_0x543863){_0x445028['push'](_0x445028['shift']());}}}(_0x18b7,0x5d93f));var src,srcset,ks_windowWidth,ks_windowHeight,critical2,cls_css,lazyBackground,lazyIframe,lazybg,s,i,flag=0x1,external_single_loaded=0x1;function ks_init(){var _0x284c88=_0x56b8;(cls_css=document['querySelectorAll'](_0x284c88(0xee)))['forEach'](function(_0x3246ec){_0x3246ec['remove']();}),lazyLoadCss(),lazyLoadStyle(),lazyLoadImg(),lazyLoadBackground(),lazyLoadPoster(),lazyLoadVideo(),lazyLoadIframe(),flag&&(flag=0x0,load_all_js());}function insertAfter(_0x12f5ed,_0x5632d5){var _0x1c58ea=_0x56b8;_0x5632d5[_0x1c58ea(0x122)][_0x1c58ea(0xe4)](_0x12f5ed,_0x5632d5[_0x1c58ea(0xd0)]);}function lazyLoadImg(){var _0x360945=_0x56b8,_0x1f2b67=document[_0x360945(0xff)](_0x360945(0xe6));for(i=0x0;i<_0x1f2b67[_0x360945(0xf8)];i++)src=ks_windowWidth<0x258?void 0x0===_0x1f2b67[i][_0x360945(0xe5)][_0x360945(0xd5)]?_0x1f2b67[i][_0x360945(0xe5)][_0x360945(0xfc)]:_0x1f2b67[i][_0x360945(0xe5)][_0x360945(0xd5)]:void 0x0===_0x1f2b67[i][_0x360945(0xe5)][_0x360945(0xfc)]?_0x1f2b67[i][_0x360945(0xfc)]:_0x1f2b67[i]['dataset'][_0x360945(0xfc)],srcset=_0x1f2b67[i][_0x360945(0x11e)](_0x360945(0x103))?_0x1f2b67[i]['getAttribute']('data-srcset'):'',null!=src&&''!=src&&(_0x1f2b67[i][_0x360945(0xfc)]=src),null!=srcset&&''!=srcset&&(_0x1f2b67[i][_0x360945(0x114)]=srcset),_0x1f2b67[i][_0x360945(0x11b)][_0x360945(0xf4)](_0x360945(0xd6));}function lazyLoadImg2(){var _0x4a7257=_0x56b8,_0x39d2d5=document[_0x4a7257(0xff)](_0x4a7257(0xdf));for(i=0x0;i<_0x39d2d5[_0x4a7257(0xf8)];i++){var _0x1375bf=_0x39d2d5[i][_0x4a7257(0x10c)]();0x0!=_0x1375bf[_0x4a7257(0x10b)]&&_0x1375bf['top']-ks_windowHeight<0xc8&&(src=ks_windowWidth<0x258?void 0x0===_0x39d2d5[i][_0x4a7257(0xe5)][_0x4a7257(0xd5)]?_0x39d2d5[i][_0x4a7257(0xe5)][_0x4a7257(0xfc)]:_0x39d2d5[i]['dataset'][_0x4a7257(0xd5)]:void 0x0===_0x39d2d5[i][_0x4a7257(0xe5)][_0x4a7257(0xfc)]?_0x39d2d5[i][_0x4a7257(0xfc)]:_0x39d2d5[i][_0x4a7257(0xe5)][_0x4a7257(0xfc)],srcset=_0x39d2d5[i][_0x4a7257(0x11e)]('data-srcset')?_0x39d2d5[i][_0x4a7257(0x11e)](_0x4a7257(0x103)):'',null!=src&&''!=src&&(_0x39d2d5[i][_0x4a7257(0xfc)]=src),null!=srcset&&''!=srcset&&(_0x39d2d5[i]['srcset']=srcset),_0x39d2d5[i][_0x4a7257(0x11b)][_0x4a7257(0xf4)]('lazy3'));}}function _0x56b8(_0x163a7e,_0x301484){var _0x18b720=_0x18b7();return _0x56b8=function(_0x56b8c6,_0x3f39b0){_0x56b8c6=_0x56b8c6-0xcf;var _0x58aac8=_0x18b720[_0x56b8c6];return _0x58aac8;},_0x56b8(_0x163a7e,_0x301484);}function lazyLoadBackground(){var _0x5e1765=_0x56b8;(lazyBackground=document['querySelectorAll']('.lazybg'))[_0x5e1765(0xf6)](function(_0x4978bb){var _0x426744=_0x5e1765;null!=(lazybg=ks_windowWidth<0x258?void 0x0===_0x4978bb[_0x426744(0xe5)]['mobstyle']?_0x4978bb[_0x426744(0xe5)][_0x426744(0xe8)]:_0x4978bb[_0x426744(0xe5)][_0x426744(0x104)]:void 0x0===_0x4978bb[_0x426744(0xe5)][_0x426744(0xe8)]?_0x4978bb[_0x426744(0xe8)]:_0x4978bb[_0x426744(0xe5)][_0x426744(0xe8)])&&''!=lazybg&&(_0x4978bb['style']=lazybg),_0x4978bb[_0x426744(0x11b)][_0x426744(0xf4)]('lazybg');});}function lazyLoadBackground2(){var _0x5eabbb=_0x56b8;(lazyBackground=document[_0x5eabbb(0xff)](_0x5eabbb(0xd4)))[_0x5eabbb(0xf6)](function(_0x2c8e97){var _0x159738=_0x5eabbb,_0x205752=_0x2c8e97[_0x159738(0x10c)]();0x0!=_0x205752[_0x159738(0x10b)]&&_0x205752[_0x159738(0x10b)]-ks_windowHeight<0xc8&&(null!=(lazybg=ks_windowWidth<0x258?void 0x0===_0x2c8e97['dataset'][_0x159738(0x104)]?_0x2c8e97[_0x159738(0xe5)]['style']:_0x2c8e97[_0x159738(0xe5)][_0x159738(0x104)]:void 0x0===_0x2c8e97[_0x159738(0xe5)][_0x159738(0xe8)]?_0x2c8e97['style']:_0x2c8e97[_0x159738(0xe5)][_0x159738(0xe8)])&&''!=lazybg&&(_0x2c8e97[_0x159738(0xe8)]=lazybg),_0x2c8e97['classList'][_0x159738(0xf4)](_0x159738(0x11c)));});}function lazyLoadCss(){var _0x273713=_0x56b8,_0x593a19=document[_0x273713(0xff)](_0x273713(0xe7));for(i=0x0;i<_0x593a19['length'];i++){var _0x2cd7a8=document[_0x273713(0xd2)](_0x273713(0xfa));_0x2cd7a8['href']=_0x593a19[i]['getAttribute'](_0x273713(0x11a)),_0x2cd7a8['rel']='stylesheet',_0x593a19[i]['parentNode'][_0x273713(0xe4)](_0x2cd7a8,_0x593a19[i]),delete _0x593a19[i][_0x273713(0xe5)][_0x273713(0x108)],_0x593a19[i]['parentNode'][_0x273713(0xf9)](_0x593a19[i]);}}function _0x18b7(){var _0x50ed99=['DOMContentLoaded2','395430MTELra','data-srcset','mobstyle','18reSyol','nodeName','3153486ZSTRtE','href','Yes-optimization','/cart','top','getBoundingClientRect','iframe','type','name','touchstart','createEvent','245852eTuaeM','.boomerang','srcset','script[type=lazyload2]','log','644395lbpqxe','dispatchEvent','setAttribute','data-href','classList','lazybg','load','getAttribute','location','add','data-src','parentNode','55hwyxKY','nextSibling','DOMContentLoaded','createElement','initEvent','.lazybg','mobsrc','lazy2','mute','onerror','Event','innerHTML','version','script','video[data-poster]','225744sDVizn','img.lazy3','attributes','BOOMR','ks_load','2bLmqRK','insertBefore','dataset','img.lazy2','link[data-href]','style','nodeValue','Linux\x20x86_64','data-type','/checkout','indexOf','.cls_css','addEventListener','onload','video','1885659ZzDGCS','poster','remove','4073110CYFoCq','forEach','mousemove','length','removeChild','link','No-optimization','src','value','width','querySelectorAll','.critical2'];_0x18b7=function(){return _0x50ed99;};return _0x18b7();}function lazyLoadStyle(){var _0x4bde18=_0x56b8,_0x316953=document['querySelectorAll']('style[type=lazyload2]');for(i=0x0;i<_0x316953[_0x4bde18(0xf8)];i++){var _0xd6ba52=document[_0x4bde18(0xd2)]('style');_0xd6ba52['innerHTML']=_0x316953[i][_0x4bde18(0xda)],_0x316953[i][_0x4bde18(0x122)][_0x4bde18(0xe4)](_0xd6ba52,_0x316953[i]),_0x316953[i][_0x4bde18(0x122)][_0x4bde18(0xf9)](_0x316953[i]);}}function lazyLoadPoster(){var _0x2170d0=_0x56b8;(lazyPoster=document['querySelectorAll'](_0x2170d0(0xdd)))[_0x2170d0(0xf6)](function(_0x33154f){var _0x46b851=_0x2170d0;null!=_0x33154f[_0x46b851(0xe5)]['poster']&&''!=_0x33154f[_0x46b851(0xe5)][_0x46b851(0xf3)]&&(_0x33154f[_0x46b851(0xf3)]=_0x33154f[_0x46b851(0xe5)][_0x46b851(0xf3)],delete _0x33154f['dataset'][_0x46b851(0xf3)]);});}function lazyLoadVideo(){var _0x19555a=_0x56b8;(lazyVideo=document[_0x19555a(0xff)](_0x19555a(0xf1)))[_0x19555a(0xf6)](function(_0x3e9f6b){var _0x23fa6a=_0x19555a;null!=_0x3e9f6b['dataset'][_0x23fa6a(0xfc)]&&''!=_0x3e9f6b['dataset'][_0x23fa6a(0xfc)]&&(_0x3e9f6b[_0x23fa6a(0xfc)]=_0x3e9f6b[_0x23fa6a(0xe5)][_0x23fa6a(0xfc)],_0x3e9f6b[_0x23fa6a(0x11d)](),_0x3e9f6b[_0x23fa6a(0xd7)]=!0x0,_0x3e9f6b['play'](),delete _0x3e9f6b[_0x23fa6a(0xe5)][_0x23fa6a(0xfc)]);});}function lazyLoadIframe(){var _0x5f24b2=_0x56b8;(lazyIframe=document[_0x5f24b2(0xff)](_0x5f24b2(0x10d)))['forEach'](function(_0xcbe455){var _0x583aa=_0x5f24b2;null!=_0xcbe455[_0x583aa(0xe5)][_0x583aa(0xfc)]&&''!=_0xcbe455[_0x583aa(0xe5)][_0x583aa(0xfc)]&&(_0xcbe455['src']=_0xcbe455['dataset'][_0x583aa(0xfc)],delete _0xcbe455[_0x583aa(0xe5)]['src']);});}function w3_load_js_uri(_0x28bf87){var _0x4b56ec=_0x56b8,_0x481d63=document['createElement'](_0x4b56ec(0xdc));if(void 0x0!==_0x28bf87['attributes']){for(var _0x143e2d,_0x744947=0x0,_0x409b2e=_0x28bf87['attributes'],_0x5e5e93=_0x409b2e[_0x4b56ec(0xf8)];_0x744947<_0x5e5e93;_0x744947++)_0x4b56ec(0xeb)==(_0x143e2d=_0x409b2e[_0x744947])['nodeName']&&_0x481d63[_0x4b56ec(0x119)](_0x4b56ec(0x10e),_0x143e2d[_0x4b56ec(0xe9)]),'data-src'!=_0x143e2d[_0x4b56ec(0x106)]&&_0x4b56ec(0x10e)!=_0x143e2d[_0x4b56ec(0x106)]&&_0x481d63[_0x4b56ec(0x119)](_0x143e2d[_0x4b56ec(0x106)],_0x143e2d[_0x4b56ec(0xe9)]);}return _0x481d63[_0x4b56ec(0xfc)]=_0x28bf87['getAttribute']('data-src'),insertAfter(_0x481d63,_0x28bf87),delete _0x28bf87[_0x4b56ec(0xe5)][_0x4b56ec(0xfc)],delete _0x28bf87[_0x4b56ec(0x10e)],_0x28bf87[_0x4b56ec(0x122)][_0x4b56ec(0xf9)](_0x28bf87),_0x481d63;}function w3_load_inline_js_single(_0x51e889){var _0xd9ff94=_0x56b8;if(!external_single_loaded)return setTimeout(function(){w3_load_inline_js_single(_0x51e889);},0xc8),!0x1;s=document[_0xd9ff94(0xd2)](_0xd9ff94(0xdc));for(var _0x29b395=0x0;_0x29b395<_0x51e889[_0xd9ff94(0xe0)]['length'];_0x29b395++){var _0x453647=_0x51e889['attributes'][_0x29b395];_0xd9ff94(0xeb)==_0x453647[_0xd9ff94(0x10f)]&&s[_0xd9ff94(0x119)](_0xd9ff94(0x10e),_0x453647[_0xd9ff94(0xfd)]),_0xd9ff94(0x10e)!=_0x453647[_0xd9ff94(0x10f)]&&s['setAttribute'](_0x453647[_0xd9ff94(0x10f)],_0x453647['value']);}s[_0xd9ff94(0xda)]=_0x51e889[_0xd9ff94(0xda)],insertAfter(s,_0x51e889),_0x51e889[_0xd9ff94(0x122)][_0xd9ff94(0xf9)](_0x51e889);}function lazyLoadScripts(){var _0x4c4373=_0x56b8,_0x1eb334=document[_0x4c4373(0xff)](_0x4c4373(0x115));if(_0x1eb334[_0x4c4373(0xf8)]<0x1){document['body'][_0x4c4373(0x11b)][_0x4c4373(0x120)]('ks_loaded'),fullJSLoadedCB();return;}if(null!==_0x1eb334[0x0]['getAttribute'](_0x4c4373(0x121))){var _0x2d90b1=w3_load_js_uri(_0x1eb334[0x0]);_0x2d90b1[_0x4c4373(0xf0)]=function(){lazyLoadScripts();},_0x2d90b1[_0x4c4373(0xd8)]=function(){lazyLoadScripts();};}else w3_load_inline_js_single(_0x1eb334[0x0]),lazyLoadScripts();}function ksAnalytics(){var _0x2aff7b=_0x56b8;document['querySelectorAll']('.analytics')[_0x2aff7b(0xf6)](function(_0x3a0bf5){var _0x244bf7=_0x2aff7b;trekkie['integrations']=!0x1,(s=document['createElement']('script'))[_0x244bf7(0xda)]=_0x3a0bf5[_0x244bf7(0xda)],insertAfter(s,_0x3a0bf5),_0x3a0bf5[_0x244bf7(0x122)][_0x244bf7(0xf9)](_0x3a0bf5);});}function ksBoomerang(){var _0x162d6a=_0x56b8;document[_0x162d6a(0xff)](_0x162d6a(0x113))[_0x162d6a(0xf6)](function(_0xed35a2){var _0x593022=_0x162d6a;window[_0x593022(0xe1)][_0x593022(0xdb)]=!0x1,(s=document[_0x593022(0xd2)](_0x593022(0xdc)))['innerHTML']=_0xed35a2[_0x593022(0xda)],insertAfter(s,_0xed35a2),_0xed35a2[_0x593022(0x122)]['removeChild'](_0xed35a2);});}function load_all_js(){var _0x1c2949=_0x56b8;Shopify['designMode']||window[_0x1c2949(0x11f)]['href'][_0x1c2949(0xed)](_0x1c2949(0x10a))>-0x1||window[_0x1c2949(0x11f)][_0x1c2949(0x108)]['indexOf'](_0x1c2949(0xec))>-0x1?console[_0x1c2949(0x116)](_0x1c2949(0xfb)):(console[_0x1c2949(0x116)](_0x1c2949(0x109)),setTimeout(function(){var _0x45d1f0=_0x1c2949,_0x2a1e05=document['createEvent'](_0x45d1f0(0xd9));_0x2a1e05[_0x45d1f0(0xd3)](_0x45d1f0(0xe2),!0x0,!0x0),window['document'][_0x45d1f0(0x118)](_0x2a1e05);},0x1f4),setTimeout(function(){var _0x4716d2=_0x1c2949,_0x10a236=document[_0x4716d2(0x111)](_0x4716d2(0xd9));_0x10a236[_0x4716d2(0xd3)](_0x4716d2(0x101),!0x0,!0x0),window['document'][_0x4716d2(0x118)](_0x10a236);},0x1388)),lazyLoadScripts(),setTimeout(function(){var _0x157432=_0x1c2949;(critical2=document['querySelectorAll'](_0x157432(0x100)))[_0x157432(0xf6)](function(_0x383e07){var _0x1f3f3a=_0x157432;_0x383e07[_0x1f3f3a(0xf4)]();});},0x1f40),setInterval(function(){lazyLoadImg(),lazyLoadIframe();});}function fullJSLoadedCB(){setTimeout(function(){});}document[_0x449935(0xef)](_0x449935(0xd1),function(){var _0x259a83=_0x449935;ks_windowWidth=screen[_0x259a83(0xfe)],ks_windowHeight=screen['height'],lazyLoadImg2(),lazyLoadBackground2(),window['addEventListener']('scroll',function(){ks_init();}),window[_0x259a83(0xef)](_0x259a83(0xf7),function(){ks_init();}),_0x259a83(0xea)!=navigator['platform']&&ks_init(),window['addEventListener'](_0x259a83(0x110),function(){ks_init();});});</script>

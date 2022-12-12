@@ -1,6 +1,6 @@
 {% if section.settings.display_recently_viewed_products %} 
 {{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
-{{ 'jquery.products.min.js' | asset_url | script_tag }}
+<script type="lazyload2" data-src="{{ 'jquery.products.min.js' | asset_url }}"></script>
 
 <section class="recently-viewed-products">
   {% if section.settings.recently_viewed_products_title != '' %}
@@ -101,7 +101,7 @@
 </script>
 {% endraw %}
 
- <script>
+ <script type="lazyload2">
   Shopify.Products.showRecentlyViewed({ 
     howManyToShow: {{ section.settings.number_of_recently_viewed_products }}, 
     wrapperId: 'recently-viewed-products-grid', 
@@ -193,7 +193,7 @@
   </script>
 
   {% if template contains 'product' %}
-  <script>
+  <script type="lazyload2">
     Shopify.Products.recordRecentlyViewed();
   </script>
   {% endif %}

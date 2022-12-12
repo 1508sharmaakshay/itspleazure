@@ -26,7 +26,7 @@
           <a href="{{ block.settings.custom_bottom_url }}">
             {% if block.settings.image != blank %}
             {%- assign img_url = block.settings.image | img_url: '400x' -%}
-           <img src="{{ img_url }}" alt="{{ block.settings.alt_image }}"/>
+           <img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAQAAABeK7cBAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=" data-src="{{ img_url }}" alt="{{ block.settings.alt_image }}"/>
              {% else %}	
                 {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
             {% endif %}

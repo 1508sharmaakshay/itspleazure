@@ -8,7 +8,7 @@
         <div class="item">
           <a title="{{ block.settings.title }}" href="{{ block.settings.link }}">
             {% if block.settings.image != blank %}
-            	<img src="{{ block.settings.image | img_url : "master" }}" alt="{{ block.settings.image.alt }}"/>
+            	<img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAQAAABeK7cBAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=" data-src="{{ block.settings.image | img_url : "master" }}" alt="{{ block.settings.image.alt }}"/>
             {% else %}
              {% capture current %}{% cycle 1, 2 %}{% endcapture %}
                   {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}

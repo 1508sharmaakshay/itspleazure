@@ -2,7 +2,7 @@
 {{ "//cdn.shopify.com/s/javascripts/currencies.js" | script_tag }}
 {{ "jquery.currencies.min.js" | asset_url | script_tag }}
 
-<script>      
+<script>
 // Pick your format here:  
 // Can be 'money_format' or 'money_with_currency_format'
 Currency.format = 'money_format';
@@ -36,6 +36,8 @@ else {
     currencySwitcher.val(cookieCurrency);    
     Currency.convertAll(shopCurrency, cookieCurrency);	
 }
+</script>
+<script type="lazyload2">
 currencySwitcher.selectize();
 jQuery('.selectize-input input').attr('disabled','disabled');
 

@@ -1,5 +1,5 @@
 {{ 'lang2.js' | asset_url | script_tag }}
-<script>
+<script type="lazyload2">
   var translator = {
     current_lang : jQuery.cookie("language"),
     init: function() {
@@ -117,8 +117,8 @@
     }   
   };
   translator.init();
-          
-  jQuery(document).ready(function() {    
+
+  setTimeout(function() {
     jQuery(".lang-switcher").change(function() {
       var value = jQuery(this).val();
       jQuery.cookie('language', value, {expires:10, path:'/'});
